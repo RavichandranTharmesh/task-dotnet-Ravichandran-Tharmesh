@@ -70,7 +70,7 @@ You can use these endpoints to interact with the data programmatically.
 
 ### Dashboard Overview  
 <p align="center">
-  <img src="<img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />" width="100%" />
+  <img src="<img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" width="100%" />
 </p>
 <img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />
 <img width="1920" height="856" alt="dashboard2" src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" />
