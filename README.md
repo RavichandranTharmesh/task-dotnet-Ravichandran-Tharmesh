@@ -67,9 +67,11 @@ You can use these endpoints to interact with the data programmatically.
 
 # 🖼️ Screenshots
 ---
-Replace the images below with your own project screenshots.
 
 ### Dashboard Overview  
+<p align="center">
+  <img src="<img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />" width="100%" />
+</p>
 <img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />
 <img width="1920" height="856" alt="dashboard2" src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" />
 <img width="1920" height="867" alt="Dashboard_Allproduct" src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" />
@@ -78,7 +80,8 @@ Replace the images below with your own project screenshots.
 <img width="1920" height="853" alt="Dash_ActiveProduct" src="https://github.com/user-attachments/assets/3d6f50a6-9df9-4868-854f-e4a2efff4b0f" />
 
 
-### Add Product Page  
+
+###  Product Page  
 <img width="1920" height="861" alt="products_Index" src="https://github.com/user-attachments/assets/3f406792-da01-49f9-a72a-4b87ded99a6a" />
 <img width="1920" height="854" alt="Addproduct_form" src="https://github.com/user-attachments/assets/e83ddc79-dc63-47f5-828a-2dbb84804f4a" />
 <img width="1920" height="841" alt="Edit_Product" src="https://github.com/user-attachments/assets/a6df87b9-62f3-407d-8429-8c0e9d7410b9" />
@@ -99,7 +102,7 @@ Replace the images below with your own project screenshots.
 <img width="1920" height="864" alt="delete_categories" src="https://github.com/user-attachments/assets/dbeccec7-2b3f-4b16-9603-065e192a881e" />
 
 
-### Tablets and Mobile Screen  
+### Responsive screen tablet and Mobile Screen  
 <img width="625" height="843" alt="mobile_respon" src="https://github.com/user-attachments/assets/65feec54-6b16-4f47-81c4-ecbc75311710" />
 <img width="625" height="856" alt="mobile_res" src="https://github.com/user-attachments/assets/48584531-8d9a-4102-9315-f8331f01c3fe" />
 <img width="608" height="860" alt="mobile res" src="https://github.com/user-attachments/assets/c25fed45-29bf-4193-97df-0bb7c274e434" />
