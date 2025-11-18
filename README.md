@@ -64,14 +64,15 @@ The REST API endpoints are available at **/api/products** and **/api/categories*
 You can use these endpoints to interact with the data programmatically.
 
 ---
+<p align="center"> <img src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" width="800" /><br> <img src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" width="800" /><br> <img src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" width="800" /><br> <img src="https://github.com/user-attachments/assets/b2808256-66b2-472d-9a14-93c8f02f4516" width="800" /><br> <img src="https://github.com/user-attachments/assets/3452e1ba-33d4-4ba7-ae30-6f5fb7e65c77" width="800" /><br> <img src="https://github.com/user-attachments/assets/3d6f50a6-9df9-4868-854f-e4a2efff4b0f" width="800" /> </p>
+
+
 
 # 🖼️ Screenshots
 ---
 
 ### Dashboard Overview  
-<p align="center">
-  <img src="<img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" width="100%" />
-</p>
+
 <img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />
 <img width="1920" height="856" alt="dashboard2" src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" />
 <img width="1920" height="867" alt="Dashboard_Allproduct" src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" />
