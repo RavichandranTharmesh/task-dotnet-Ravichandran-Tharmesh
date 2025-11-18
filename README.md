@@ -59,7 +59,7 @@ The application will start, and your default web browser will open the dashboard
 You can view, add, edit, and delete products.  
 Monitor inventory using the summary cards, recent products table, and other interactive features.
 
-**API Access **  
+**API Access (Optional)**  
 The REST API endpoints are available at **/api/products** and **/api/categories**.  
 You can use these endpoints to interact with the data programmatically.
 
