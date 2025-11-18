@@ -64,49 +64,23 @@ The REST API endpoints are available at **/api/products** and **/api/categories*
 You can use these endpoints to interact with the data programmatically.
 
 ---
-<p align="center"> <img src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" width="800" /><br> <img src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" width="800" /><br> <img src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" width="800" /><br> <img src="https://github.com/user-attachments/assets/b2808256-66b2-472d-9a14-93c8f02f4516" width="800" /><br> <img src="https://github.com/user-attachments/assets/3452e1ba-33d4-4ba7-ae30-6f5fb7e65c77" width="800" /><br> <img src="https://github.com/user-attachments/assets/3d6f50a6-9df9-4868-854f-e4a2efff4b0f" width="800" /> </p>
-
-
 
 # 🖼️ Screenshots
 ---
-
 ### Dashboard Overview  
 
-<img width="1920" height="850" alt="dashboard1" src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" />
-<img width="1920" height="856" alt="dashboard2" src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" />
-<img width="1920" height="867" alt="Dashboard_Allproduct" src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" />
-<img width="1920" height="848" alt="dash_AllCategories" src="https://github.com/user-attachments/assets/b2808256-66b2-472d-9a14-93c8f02f4516" />
-<img width="1920" height="853" alt="Dash_lowStock" src="https://github.com/user-attachments/assets/3452e1ba-33d4-4ba7-ae30-6f5fb7e65c77" />
-<img width="1920" height="853" alt="Dash_ActiveProduct" src="https://github.com/user-attachments/assets/3d6f50a6-9df9-4868-854f-e4a2efff4b0f" />
-
+<p align="center"> <img src="https://github.com/user-attachments/assets/a6036e7a-c708-4c7d-95dd-58bf9e3f7ee6" width="800" /><br> <img src="https://github.com/user-attachments/assets/c1a09f48-77a4-4487-ba57-3c90ac554766" width="800" /><br> <img src="https://github.com/user-attachments/assets/ed991b62-933c-409a-aba3-74387d8c5562" width="800" /><br> <img src="https://github.com/user-attachments/assets/b2808256-66b2-472d-9a14-93c8f02f4516" width="800" /><br> <img src="https://github.com/user-attachments/assets/3452e1ba-33d4-4ba7-ae30-6f5fb7e65c77" width="800" /><br> <img src="https://github.com/user-attachments/assets/3d6f50a6-9df9-4868-854f-e4a2efff4b0f" width="800" /> </p>
 
 
 ###  Product Page  
-<img width="1920" height="861" alt="products_Index" src="https://github.com/user-attachments/assets/3f406792-da01-49f9-a72a-4b87ded99a6a" />
-<img width="1920" height="854" alt="Addproduct_form" src="https://github.com/user-attachments/assets/e83ddc79-dc63-47f5-828a-2dbb84804f4a" />
-<img width="1920" height="841" alt="Edit_Product" src="https://github.com/user-attachments/assets/a6df87b9-62f3-407d-8429-8c0e9d7410b9" />
-<img width="1920" height="853" alt="P_Added_success" src="https://github.com/user-attachments/assets/fac407d0-61b1-4818-a92e-3d2b96b30e83" />
-<img width="1920" height="841" alt="Edit_Product" src="https://github.com/user-attachments/assets/cc86ccfe-bf8b-4e6d-b0be-7981e566359d" />
-<img width="1920" height="861" alt="P_Update_Success" src="https://github.com/user-attachments/assets/b64452e5-833f-43b6-9e7b-7e982064baa4" />
-<img width="1920" height="861" alt="Warning_product" src="https://github.com/user-attachments/assets/72bfc002-6acb-4d19-aff9-97f03982d117" />
-<img width="1920" height="858" alt="Delete_product" src="https://github.com/user-attachments/assets/5dfa5eaf-0bd0-4ac4-9a4d-2bcd10fe5e2c" />
-
+<p align="center"> <img src="https://github.com/user-attachments/assets/3f406792-da01-49f9-a72a-4b87ded99a6a" width="800" /><br> <img src="https://github.com/user-attachments/assets/e83ddc79-dc63-47f5-828a-2dbb84804f4a" width="800" /><br> <img src="https://github.com/user-attachments/assets/a6df87b9-62f3-407d-8429-8c0e9d7410b9" width="800" /><br> <img src="https://github.com/user-attachments/assets/fac407d0-61b1-4818-a92e-3d2b96b30e83" width="800" /><br> <img src="https://github.com/user-attachments/assets/cc86ccfe-bf8b-4e6d-b0be-7981e566359d" width="800" /><br> <img src="https://github.com/user-attachments/assets/b64452e5-833f-43b6-9e7b-7e982064baa4" width="800" /><br> <img src="https://github.com/user-attachments/assets/72bfc002-6acb-4d19-aff9-97f03982d117" width="800" /><br> <img src="https://github.com/user-attachments/assets/5dfa5eaf-0bd0-4ac4-9a4d-2bcd10fe5e2c" width="800" /> </p>
 
 ### category Page  
-<img width="1920" height="861" alt="categories_Index" src="https://github.com/user-attachments/assets/9e522fc1-1564-431d-a0e2-a405908c6d06" />
-<img width="1920" height="849" alt="Add_categories" src="https://github.com/user-attachments/assets/86015ed0-eefe-4b77-b0d4-f72f8fc6c961" />
-<img width="1920" height="855" alt="Edit_categories" src="https://github.com/user-attachments/assets/9767fb79-37c0-4383-a1f2-cd5af8601965" />
-<img width="1920" height="834" alt="C_Add_Success" src="https://github.com/user-attachments/assets/e38c4976-f6a8-4849-8d64-e998389a091f" />
-<img width="1920" height="843" alt="C_Update_success" src="https://github.com/user-attachments/assets/793c5ab3-173e-4c37-b960-1ff54d335334" />
-<img width="1920" height="852" alt="Warning_categories" src="https://github.com/user-attachments/assets/61c340f5-9573-49e0-9860-a4bad826b9db" />
-<img width="1920" height="864" alt="delete_categories" src="https://github.com/user-attachments/assets/dbeccec7-2b3f-4b16-9603-065e192a881e" />
+<p align="center"> <img src="https://github.com/user-attachments/assets/9e522fc1-1564-431d-a0e2-a405908c6d06" width="800" /><br> <img src="https://github.com/user-attachments/assets/86015ed0-eefe-4b77-b0d4-f72f8fc6c961" width="800" /><br> <img src="https://github.com/user-attachments/assets/9767fb79-37c0-4383-a1f2-cd5af8601965" width="800" /><br> <img src="https://github.com/user-attachments/assets/e38c4976-f6a8-4849-8d64-e998389a091f" width="800" /><br> <img src="https://github.com/user-attachments/assets/793c5ab3-173e-4c37-b960-1ff54d335334" width="800" /><br> <img src="https://github.com/user-attachments/assets/61c340f5-9573-49e0-9860-a4bad826b9db" width="800" /><br> <img src="https://github.com/user-attachments/assets/dbeccec7-2b3f-4b16-9603-065e192a881e" width="800" /> </p>
 
 
 ### Responsive screen tablet and Mobile Screen  
-<img width="625" height="843" alt="mobile_respon" src="https://github.com/user-attachments/assets/65feec54-6b16-4f47-81c4-ecbc75311710" />
-<img width="625" height="856" alt="mobile_res" src="https://github.com/user-attachments/assets/48584531-8d9a-4102-9315-f8331f01c3fe" />
-<img width="608" height="860" alt="mobile res" src="https://github.com/user-attachments/assets/c25fed45-29bf-4193-97df-0bb7c274e434" />
+<p align="center"> <img src="https://github.com/user-attachments/assets/65feec54-6b16-4f47-81c4-ecbc75311710" width="400" /><br> <img src="https://github.com/user-attachments/assets/48584531-8d9a-4102-9315-f8331f01c3fe" width="400" /><br> <img src="https://github.com/user-attachments/assets/c25fed45-29bf-4193-97df-0bb7c274e434" width="400" /> </p>
 
 
 ---
