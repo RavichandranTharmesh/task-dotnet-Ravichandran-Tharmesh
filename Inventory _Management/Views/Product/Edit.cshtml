@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = Context.Request.RouteValues["id"]?.ToString();
+}
+
+<h2>Edit Product</h2>
+
+@* this part give Success toast notification *@
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@*  edit from part *@
+<form id="productForm" onsubmit="return submitForm();">
+    <input type="hidden" id="productId" />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input id="productName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Code</label>
+        <input id="productCode" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select id="categorySelect" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input id="price" type="number" step="0.01" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Stock Quantity</label>
+        <input id="stock" type="number" class="form-control" />
+    </div>
+    <div class="mb-3 form-check">
+        <input id="isActive" type="checkbox" class="form-check-input" />
+        <label class="form-check-label">Active</label>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Update</button>
+    <a class="btn btn-secondary" href="/Product">Cancel</a>
+</form>
+
+@* validate warning part *@
+<div class="modal fade" id="validationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-top">
+        <div class="modal-content" style="border-radius: 10px; border: 1px solid #FFC107;">
+            <div class="modal-header bg-warning text-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill"></i> Warning</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body fs-6" id="validationMessage">
+                <!-- message comes here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning px-4" data-bs-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+                const API = '/api';
+                const productId = '@id';
+
+        // this is validation modal part
+                function showValidation(message) {
+                    document.getElementById("validationMessage").innerText = message;
+                    var modal = new bootstrap.Modal(document.getElementById("validationModal"));
+                    modal.show();
+                }
+
+         // this part for Load categories into dropdown
+                async function loadCategories() {
+                    const res = await fetch(API + '/categories');
+                    const cats = await res.json();
+                    const sel = document.getElementById('categorySelect');
+                    sel.innerHTML = '';
+                    cats.forEach(c => sel.innerHTML += `<option value="${c.id}">${c.name}</option>`);
+                }
+
+        // this part is load product details
+                async function loadProduct() {
+                    if (!productId) { showValidation('No product id provided'); return; }
+                    const res = await fetch(API + '/products/' + productId);
+                    if (!res.ok) { showValidation('Product not found'); return; }
+                    const p = await res.json();
+
+                    document.getElementById('productId').value = p.id;
+                    document.getElementById('productName').value = p.productName;
+                    document.getElementById('productCode').value = p.productCode;
+                    document.getElementById('price').value = p.price;
+                    document.getElementById('stock').value = p.stockQuantity;
+                    document.getElementById('isActive').checked = p.isActive;
+
+                    await loadCategories();
+                    document.getElementById('categorySelect').value = p.categoryId;
+                }
+
+        // this part is validate form fields
+                function validate() {
+                    const name = document.getElementById('productName').value.trim();
+                    const code = document.getElementById('productCode').value.trim();
+                    const price = document.getElementById('price').value;
+                    const stock = document.getElementById('stock').value;
+                    const cat = document.getElementById('categorySelect').value;
+
+                    if (!name) { showValidation('Product name is required'); return false; }
+                    if (!code) { showValidation('Product code is required'); return false; }
+                    if (!cat) { showValidation('Please select a category'); return false; }
+                    if (price === '' || isNaN(price) || Number(price) < 0) { showValidation('Enter valid price'); return false; }
+                    if (stock === '' || isNaN(stock) || Number(stock) < 0) { showValidation('Enter valid stock quantity'); return false; }
+
+                    return true;
+                }
+
+        // Submit form part
+                async function submitForm() {
+                    event.preventDefault();
+                    if (!validate()) return false;
+
+                    const id = document.getElementById('productId').value;
+                    const payload = {
+                        productName: document.getElementById('productName').value.trim(),
+                        productCode: document.getElementById('productCode').value.trim(),
+                        categoryId: parseInt(document.getElementById('categorySelect').value),
+                        price: parseFloat(document.getElementById('price').value),
+                        stockQuantity: parseInt(document.getElementById('stock').value),
+                        isActive: document.getElementById('isActive').checked
+                    };
+
+                    const res = await fetch(API + '/products/' + id, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        window.location.href = '/Product?success=Product updated successfully';
+                    } else {
+                        const err = await res.json().catch(() => null);
+                        showValidation(err?.message ?? 'Update failed');
+                    }
+
+                    return false;
+                }
+        //Page loading part
+                window.onload = () => loadProduct();
+    </script>
+}

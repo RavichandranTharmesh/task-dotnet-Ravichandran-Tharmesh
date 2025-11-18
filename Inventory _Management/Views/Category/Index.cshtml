@@ -1,0 +1,249 @@
+﻿@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var successMessage = Context.Request.Query.ContainsKey("success")
+        ? Context.Request.Query["success"].ToString()
+        : null;
+}
+
+<h2>Categories</h2>
+
+@* this is toast notification part *@
+<div class="position-fixed top-0 end-0 p-3" style="z-index:1100">
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@* action button part *@
+<div class="mb-3 d-flex gap-2">
+    <a class="btn btn-primary" href="/Category/Add">Add Category</a>
+    <button class="btn btn-secondary" onclick="loadCategories()">Refresh</button>
+
+</div>
+
+@* search box *@
+<div>
+    <input class="form-control mt-2" id="searchBox" placeholder="Search by category name..." oninput="searchCategories()" />
+</div>
+
+<style>
+    #categoryTable {
+        background: white;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+        #categoryTable thead {
+            background: #f2f4f7;
+            font-weight: 600;
+        }
+
+        #categoryTable tbody tr:hover {
+            background: #eef1f5 !important;
+            cursor: pointer;
+        }
+
+        #categoryTable td, #categoryTable th {
+            vertical-align: middle;
+            padding: 8px;
+        }
+
+    .modal-header-delete {
+        background: #d9534f;
+        color: white;
+        border-bottom: 0;
+    }
+</style>
+
+@* Table *@
+<table class="table table-striped" id="categoryTable">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th style="width:150px">Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@* Delete conformation part *@
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header modal-header-delete">
+                <h5 class="modal-title">Delete Category</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p id="deleteMessage" class="fw-bold "></p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="deleteConfirmBtn" class="btn btn-danger">Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+                const API = '/api';
+                let allCategories = [];
+                let deleteId = null;
+
+         // for Pagination
+                let currentPage = 1;
+                const pageSize = 10;
+
+
+        // for load all categorie
+                async function loadCategories() {
+                    const res = await fetch(API + '/categories');
+                    allCategories = await res.json();
+                    currentPage = 1;
+                    renderCategoriesPage();
+                }
+
+                function renderCategoriesPage() {
+                    const start = (currentPage - 1) * pageSize;
+                    const end = start + pageSize;
+                    const pageCategories = allCategories.slice(start, end);
+                    renderCategories(pageCategories);
+                    renderPaginationControls();
+                }
+
+                function renderCategories(categories) {
+                    const tbody = document.querySelector('#categoryTable tbody');
+                    tbody.innerHTML = '';
+                    categories.forEach(c => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${c.id}</td>
+                            <td>${c.name}</td>
+                            <td>
+                                <a class="btn btn-sm btn-warning" href="/Category/Edit/${c.id}">Edit</a>
+                                <button class="btn btn-sm btn-danger"
+                                    onclick="openDeleteModal(${c.id}, '${escapeHtml(c.name)}')">Delete</button>
+                            </td>`;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+
+         // for Pagination control
+                function renderPaginationControls() {
+                    const totalPages = Math.ceil(allCategories.length / pageSize);
+                    let paginationHtml = `
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <button class="btn btn-sm btn-outline-primary" onclick="prevPage()" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+                            <span>Page ${currentPage} of ${totalPages}</span>
+                            <button class="btn btn-sm btn-outline-primary" onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+                        </div>`;
+
+                    let paginationDiv = document.getElementById('paginationControls');
+                    if (!paginationDiv) {
+                        paginationDiv = document.createElement('div');
+                        paginationDiv.id = 'paginationControls';
+                        document.querySelector('#categoryTable').after(paginationDiv);
+                    }
+                    paginationDiv.innerHTML = paginationHtml;
+                }
+
+                function nextPage() {
+                    const totalPages = Math.ceil(allCategories.length / pageSize);
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderCategoriesPage();
+                    }
+                }
+
+                function prevPage() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderCategoriesPage();
+                    }
+                }
+        // for search
+                function searchCategories() {
+                    const q = document.getElementById('searchBox').value.toLowerCase();
+                    const filtered = allCategories.filter(c =>
+                        c.name.toLowerCase().includes(q)
+                    );
+                    currentPage = 1;
+                    renderCategories(filtered.slice(0, pageSize));
+
+
+                    const totalPages = Math.ceil(filtered.length / pageSize);
+                    let paginationHtml = `
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <button class="btn btn-sm btn-outline-primary" disabled>Previous</button>
+                            <span>Page 1 of ${totalPages}</span>
+                            <button class="btn btn-sm btn-outline-primary" ${totalPages <= 1 ? 'disabled' : ''}>Next</button>
+                        </div>`;
+                    let paginationDiv = document.getElementById('paginationControls');
+                    if (!paginationDiv) {
+                        paginationDiv = document.createElement('div');
+                        paginationDiv.id = 'paginationControls';
+                        document.querySelector('#categoryTable').after(paginationDiv);
+                    }
+                    paginationDiv.innerHTML = paginationHtml;
+                }
+
+        //this part for Open delete confirmation modal
+                function openDeleteModal(id, name) {
+                    deleteId = id;
+                    document.getElementById("deleteMessage").innerText =
+                        `Are you sure you want to delete category "${name}"?`;
+
+                    const modal = new bootstrap.Modal(document.getElementById("deleteModal"));
+                    modal.show();
+
+                    document.getElementById("deleteConfirmBtn").onclick = deleteCategory;
+                }
+        //delete category
+                async function deleteCategory() {
+                    const res = await fetch(`${API}/categories/${deleteId}`, { method: 'DELETE' });
+
+                    if (res.ok) {
+                        showToast('Category deleted successfully!');
+                        loadCategories();
+                    } else {
+                        alert("Delete failed.");
+                    }
+
+                    bootstrap.Modal.getInstance(document.getElementById("deleteModal")).hide();
+                }
+
+                function escapeHtml(text) {
+                    return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                }
+
+        //for success toast
+
+                function showToast(message) {
+                    const toastEl = document.getElementById('successToast');
+                    toastEl.querySelector('.toast-body').innerText = message;
+                    new bootstrap.Toast(toastEl).show();
+                }
+        //page load
+                window.onload = () => {
+                    loadCategories();
+                    var msg = '@successMessage';
+                    if (msg) showToast(msg);
+                };
+    </script>
+}
+
+
+

@@ -1,0 +1,301 @@
+﻿@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var successMessage = Context.Request.Query.ContainsKey("success")
+        ? Context.Request.Query["success"].ToString()
+        : null;
+}
+
+<h2>Products</h2>
+@* this is Success toast notification part *@
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+
+@* this is  Add, Refresh, Search, Filter, Sorting part *@
+<div class="mb-3">
+
+    <a class="btn btn-primary" href="/Product/Add">Add Product</a>
+    <button class="btn btn-secondary" onclick="loadProducts()">Refresh</button>
+
+    <input class="form-control mt-2" id="searchBox" placeholder="Search by name or code" oninput="applyFilters()" />
+
+    <select id="categoryFilter" class="form-select mt-2" onchange="applyFilters()">
+        <option value="">Filter by Category</option>
+    </select>
+
+    <select id="sortBox" class="form-select mt-2" onchange="applySorting()">
+        <option value="">Sort By</option>
+        <option value="price_asc">Price: Low → High</option>
+        <option value="price_desc">Price: High → Low</option>
+        <option value="stock_asc">Stock: Low → High</option>
+        <option value="stock_desc">Stock: High → Low</option>
+        <option value="name_asc">Name: A → Z</option>
+        <option value="name_desc">Name: Z → A</option>
+    </select>
+
+</div>
+
+@* product table *@
+<table class="table table-striped" id="productTable">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th style="width:150px">Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@* delete modal *@
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background:#d9534f; color:white;">
+                <h5 class="modal-title">Delete Product</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p id="deleteMessage" class="fw-bold text-dark"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="deleteConfirmBtn" class="btn btn-danger">Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+
+                const API = '/api';
+                let allProducts = [];
+                let filteredProducts = [];
+                let deleteId = null;
+
+                let currentPage = 1;
+                const pageSize = 10;
+
+
+
+         // this is load products and categories part
+
+                async function loadProducts() {
+
+                    const res = await fetch(API + '/products');
+                    allProducts = await res.json();
+
+                    await loadCategories();
+
+                    applyFilters();
+                }
+
+
+         // load categories for filter dropdown part
+                async function loadCategories() {
+                    const res = await fetch(API + '/categories');
+                    const cats = await res.json();
+
+                    let dropdown = document.getElementById("categoryFilter");
+
+                    dropdown.innerHTML = `<option value="">Filter by Category</option>`;
+
+                    cats.forEach(c => {
+                        dropdown.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+                    });
+                }
+
+
+        //search and filter part
+                function applyFilters() {
+
+                    const search = document.getElementById("searchBox").value.toLowerCase();
+                    const category = document.getElementById("categoryFilter").value;
+
+                    filteredProducts = allProducts.filter(p =>
+                        (p.productName.toLowerCase().includes(search) ||
+                            p.productCode.toLowerCase().includes(search)) &&
+                        (category === "" || p.categoryName === category)
+                    );
+
+                    applySorting();
+                }
+
+
+
+        //apply sorting part
+                function applySorting() {
+                    const sortValue = document.getElementById("sortBox").value;
+
+                    let sorted = [...filteredProducts];
+
+                    switch (sortValue) {
+                        case "price_asc":
+                            sorted.sort((a, b) => a.price - b.price);
+                            break;
+                        case "price_desc":
+                            sorted.sort((a, b) => b.price - a.price);
+                            break;
+                        case "stock_asc":
+                            sorted.sort((a, b) => a.stockQuantity - b.stockQuantity);
+                            break;
+                        case "stock_desc":
+                            sorted.sort((a, b) => b.stockQuantity - a.stockQuantity);
+                            break;
+                        case "name_asc":
+                            sorted.sort((a, b) => a.productName.localeCompare(b.productName));
+                            break;
+                        case "name_desc":
+                            sorted.sort((a, b) => b.productName.localeCompare(a.productName));
+                            break;
+                    }
+
+                    filteredProducts = sorted;
+                    currentPage = 1;
+
+                    renderProductsPage();
+                }
+
+
+         //pagination part
+
+                function renderProductsPage() {
+
+                    const start = (currentPage - 1) * pageSize;
+                    const end = start + pageSize;
+
+                    renderProducts(filteredProducts.slice(start, end));
+                    renderPaginationControls();
+                }
+
+
+                function renderPaginationControls() {
+
+                    const totalPages = Math.ceil(filteredProducts.length / pageSize);
+                    let html = `
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <button class="btn btn-sm btn-outline-primary"
+                                onclick="prevPage()" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+
+                            <span>Page ${currentPage} of ${totalPages}</span>
+
+                            <button class="btn btn-sm btn-outline-primary"
+                                onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+                        </div>`;
+
+                    let div = document.getElementById('paginationControls');
+                    if (!div) {
+                        div = document.createElement('div');
+                        div.id = 'paginationControls';
+                        document.querySelector('#productTable').after(div);
+                    }
+
+                    div.innerHTML = html;
+                }
+
+                function prevPage() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderProductsPage();
+                    }
+                }
+
+                function nextPage() {
+                    const total = Math.ceil(filteredProducts.length / pageSize);
+                    if (currentPage < total) {
+                        currentPage++;
+                        renderProductsPage();
+                    }
+                }
+
+
+         //render table
+                function renderProducts(products) {
+
+                    const tbody = document.querySelector('#productTable tbody');
+                    tbody.innerHTML = "";
+
+                    products.forEach(p => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${p.id}</td>
+                                <td>${p.productName}</td>
+                                <td>${p.productCode}</td>
+                                <td>${p.categoryName}</td>
+                                <td>${p.price.toFixed(2)}</td>
+                                <td>${p.stockQuantity}</td>
+                                <td>
+                                    <span class="badge ${p.isActive ? 'bg-success' : 'bg-danger'}">
+                                        ${p.isActive ? 'Active' : 'Inactive'}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning" href="/Product/Edit/${p.id}">Edit</a>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="openDeleteModal(${p.id}, '${escapeHtml(p.productName)}')">Delete</button>
+                                </td>
+                            </tr>`;
+                    });
+                }
+
+
+        //delete product part
+                function openDeleteModal(id, name) {
+                    deleteId = id;
+                    document.getElementById("deleteMessage").innerText =
+                        `Are you sure you want to delete product "${name}"?`;
+
+                    new bootstrap.Modal(document.getElementById("deleteModal")).show();
+
+                    document.getElementById("deleteConfirmBtn").onclick = deleteProduct;
+                }
+
+                async function deleteProduct() {
+                    const res = await fetch(`${API}/products/${deleteId}`, { method: 'DELETE' });
+
+                    bootstrap.Modal.getInstance(document.getElementById("deleteModal")).hide();
+
+                    if (res.ok) {
+                        loadProducts();
+                    } else {
+                        alert("Delete failed!");
+                    }
+                }
+
+                function escapeHtml(text) {
+                    return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                }
+        //page loading part
+                window.onload = () => {
+                    loadProducts();
+
+                    var message = '@successMessage';
+                    if (message) {
+                        var toastEl = document.getElementById('successToast');
+                        toastEl.querySelector('.toast-body').innerText = message;
+                        new bootstrap.Toast(toastEl).show();
+                    }
+                };
+
+    </script>
+}

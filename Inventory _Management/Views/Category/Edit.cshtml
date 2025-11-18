@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Edit Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = Context.Request.RouteValues["id"]?.ToString();
+}
+
+<h2>Edit Category</h2>
+
+@* this part give Success toast notification *@
+<div class="position-fixed top-0 end-0 p-3" style="z-index:1100">
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@* this is for edit form *@ 
+<form id="editForm">
+    <input type="hidden" id="catId" />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input id="name" class="form-control" />
+    </div>
+    <button type="button" class="btn btn-primary" onclick="submitForm()">Update</button>
+    <a class="btn btn-secondary" href="/Category">Cancel</a>
+</form>
+
+@* Validation warning part *@
+<div class="modal fade" id="validationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-top">
+        <div class="modal-content" style="border-radius: 10px; border: 1px solid #FFC107;">
+            <div class="modal-header bg-warning text-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill"></i> Warning</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body fs-6" id="validationMessage">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning px-4" data-bs-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+                const API = '/api';
+                const catId = '@id';
+
+        // validation modal part
+                function showValidation(message) {
+                    document.getElementById("validationMessage").innerText = message;
+                    var modal = new bootstrap.Modal(document.getElementById("validationModal"));
+                    modal.show();
+                }
+
+        //category details load part
+                async function loadCategory() {
+                    const res = await fetch(API + '/categories/' + catId);
+                    if(!res.ok){ showValidation('Category not found'); return; }
+                    const c = await res.json();
+                    document.getElementById('catId').value = c.id;
+                    document.getElementById('name').value = c.name;
+                }
+
+
+                function validate() {
+                    const name = document.getElementById('name').value.trim();
+                    if(!name) {
+                        showValidation('Category name is required!');
+                        return false;
+                    }
+                    return true;
+                }
+
+        // this part Submit update category details
+                async function submitForm() {
+                    if(!validate()) return;
+                    const id = document.getElementById('catId').value;
+                    const payload = { name: document.getElementById('name').value.trim() };
+
+                    const res = await fetch(API + '/categories/' + id, {
+                        method:'PUT',
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify(payload)
+                    });
+
+                    if(res.ok){
+                        window.location.href = '/Category?success=Category updated successfully';
+                    } else {
+                        const err = await res.json().catch(()=>null);
+                        showValidation(err?.message ?? 'Update failed');
+                    }
+                }
+
+
+        // this part for load category on page
+                window.onload = () => loadCategory();
+    </script>
+}

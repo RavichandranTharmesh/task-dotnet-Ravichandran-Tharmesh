@@ -1,0 +1,228 @@
+{
+  "Products": [
+    {
+      "Id": 1,
+      "ProductName": "Samsung TV",
+      "ProductCode": "010",
+      "CategoryId": 1,
+      "CategoryName": "Electronics",
+      "Price": 20000,
+      "StockQuantity": 17,
+      "IsActive": true
+    },
+    {
+      "Id": 2,
+      "ProductName": "Office Chair",
+      "ProductCode": "012",
+      "CategoryId": 3,
+      "CategoryName": "Furniture",
+      "Price": 1350,
+      "StockQuantity": 34,
+      "IsActive": true
+    },
+    {
+      "Id": 3,
+      "ProductName": "iPhone 15",
+      "ProductCode": "015",
+      "CategoryId": 1,
+      "CategoryName": "Electronics",
+      "Price": 45000,
+      "StockQuantity": 18,
+      "IsActive": true
+    },
+    {
+      "Id": 4,
+      "ProductName": "iPhone 16",
+      "ProductCode": "016",
+      "CategoryId": 1,
+      "CategoryName": "Electronics",
+      "Price": 55000,
+      "StockQuantity": 9,
+      "IsActive": true
+    },
+    {
+      "Id": 5,
+      "ProductName": "Dell Laptop",
+      "ProductCode": "D001",
+      "CategoryId": 1,
+      "CategoryName": "Electronics",
+      "Price": 34000,
+      "StockQuantity": 4,
+      "IsActive": true
+    },
+    {
+      "Id": 6,
+      "ProductName": "Asus Laptop",
+      "ProductCode": "A098",
+      "CategoryId": 1,
+      "CategoryName": "Electronics",
+      "Price": 33000,
+      "StockQuantity": 3,
+      "IsActive": true
+    },
+    {
+      "Id": 7,
+      "ProductName": "Levi\u0027s Jeans",
+      "ProductCode": "LJ01",
+      "CategoryId": 2,
+      "CategoryName": "Clothing",
+      "Price": 900,
+      "StockQuantity": 10,
+      "IsActive": true
+    },
+    {
+      "Id": 8,
+      "ProductName": "Linen Shirt",
+      "ProductCode": "LS564",
+      "CategoryId": 2,
+      "CategoryName": "Clothing",
+      "Price": 999,
+      "StockQuantity": 34,
+      "IsActive": true
+    },
+    {
+      "Id": 9,
+      "ProductName": "Microwave Oven",
+      "ProductCode": "MO238",
+      "CategoryId": 6,
+      "CategoryName": "Home Appliances",
+      "Price": 31000,
+      "StockQuantity": 3,
+      "IsActive": true
+    },
+    {
+      "Id": 11,
+      "ProductName": "Vegitable cutter",
+      "ProductCode": "VC908",
+      "CategoryId": 6,
+      "CategoryName": "Home Appliances",
+      "Price": 8700,
+      "StockQuantity": 34,
+      "IsActive": true
+    },
+    {
+      "Id": 12,
+      "ProductName": "Dining Table",
+      "ProductCode": "DT675",
+      "CategoryId": 3,
+      "CategoryName": "Furniture",
+      "Price": 10000,
+      "StockQuantity": 5,
+      "IsActive": true
+    },
+    {
+      "Id": 13,
+      "ProductName": "Office Chair",
+      "ProductCode": "OC466",
+      "CategoryId": 3,
+      "CategoryName": "Furniture",
+      "Price": 7500,
+      "StockQuantity": 14,
+      "IsActive": true
+    },
+    {
+      "Id": 14,
+      "ProductName": "Foot Ball",
+      "ProductCode": "FB987",
+      "CategoryId": 4,
+      "CategoryName": "Sports",
+      "Price": 3300,
+      "StockQuantity": 3,
+      "IsActive": true
+    },
+    {
+      "Id": 15,
+      "ProductName": "Cricket ball",
+      "ProductCode": "CB456",
+      "CategoryId": 4,
+      "CategoryName": "Sports",
+      "Price": 300,
+      "StockQuantity": 10,
+      "IsActive": true
+    },
+    {
+      "Id": 16,
+      "ProductName": "Harry Potter Book",
+      "ProductCode": "HP098",
+      "CategoryId": 5,
+      "CategoryName": "Books",
+      "Price": 130,
+      "StockQuantity": 15,
+      "IsActive": true
+    },
+    {
+      "Id": 17,
+      "ProductName": "Writing Book",
+      "ProductCode": "WB675",
+      "CategoryId": 5,
+      "CategoryName": "Books",
+      "Price": 80,
+      "StockQuantity": 12,
+      "IsActive": true
+    },
+    {
+      "Id": 18,
+      "ProductName": "Shampoo",
+      "ProductCode": "S452",
+      "CategoryId": 7,
+      "CategoryName": "Beauty \u0026 Health",
+      "Price": 330,
+      "StockQuantity": 18,
+      "IsActive": true
+    },
+    {
+      "Id": 19,
+      "ProductName": "Lipstick",
+      "ProductCode": "L044",
+      "CategoryId": 7,
+      "CategoryName": "Beauty \u0026 Health",
+      "Price": 760,
+      "StockQuantity": 9,
+      "IsActive": true
+    },
+    {
+      "Id": 20,
+      "ProductName": "Puzzle Game",
+      "ProductCode": "PG675",
+      "CategoryId": 8,
+      "CategoryName": "Toys",
+      "Price": 3400,
+      "StockQuantity": 38,
+      "IsActive": false
+    }
+  ],
+  "Categories": [
+    {
+      "Id": 1,
+      "Name": "Electronics"
+    },
+    {
+      "Id": 2,
+      "Name": "Clothing"
+    },
+    {
+      "Id": 3,
+      "Name": "Furniture"
+    },
+    {
+      "Id": 4,
+      "Name": "Sports"
+    },
+    {
+      "Id": 5,
+      "Name": "Books"
+    },
+    {
+      "Id": 6,
+      "Name": "Home Appliances"
+    },
+    {
+      "Id": 7,
+      "Name": "Beauty \u0026 Health"
+    },
+    {
+      "Id": 8,
+      "Name": "Toys"
+    }
+  ]
+}
