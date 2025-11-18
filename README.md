@@ -1,4 +1,4 @@
-<img width="625" height="856" alt="mobile_res" src="https://github.com/user-attachments/assets/ac2d8334-fc9d-4c53-b5af-31a5eb8544d8" /># 📦 Project Overview
+# 📦 Project Overview
 ---
 This project is an Inventory Management System designed to help users efficiently manage products and categories. Users can add, view, edit, and delete products, and the system also provides a REST API for integration with other applications.  
 The Smart Inventory Dashboard provides a clear and interactive view of the inventory. It shows key metrics such as total products, total categories, low-stock items, and active products through summary cards, which can be clicked to see more details. The dashboard also includes a recent products table displaying the latest items, highlighting products with low stock for easy monitoring.  
