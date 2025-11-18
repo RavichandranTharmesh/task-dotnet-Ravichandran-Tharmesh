@@ -1,9 +1,11 @@
 📦 Project Overview
+
 This project is an Inventory Management System designed to help users efficiently manage products and categories. Users can add, view, edit, and delete products, and the system also provides a REST API for integration with other applications.
 The Smart Inventory Dashboard provides a clear and interactive view of the inventory. It shows key metrics such as total products, total categories, low-stock items, and active products through summary cards, which can be clicked to see more details. The dashboard also includes a recent products table displaying the latest items, highlighting products with low stock for easy monitoring.
 The dashboard is fully responsive, so it works well on mobile devices, tablets, and desktop computers. Additional features include a refresh button, color-coded status badges, and hover effects for better visibility. The interface is simple, clean, and easy to use, making inventory management faster and more efficient.
 
 🛠️ Technologies Used
+
 Backend: ASP.NET Core MVC, C#
 Frontend: HTML, CSS, JavaScript
 Data Storage: JSON files (managed via a custom DataService)
